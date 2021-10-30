@@ -7,7 +7,7 @@ var END=0;
 var gameState=1;
 
 function preload(){
-  boyImg = loadAnimation("assets/boy.png")
+  boyImg = loadImage("assets/boy.png")
   jungleImg = loadImage("assets/jungle.png")
   stoneImg = loadImage("assets/rock.png")
   woodImg = loadImage("assets/wood.png")
@@ -28,11 +28,11 @@ function setup() {
   lion.addImage("abc", lionImg)
   lion.scale=0.8
 
-  jungle=createSprite(1200,600)
-  jungle.addImage("abc",jungle.png)
-  score = 0;
+  //jungle=createSprite(1200,600)
+  //jungle.addImage("abc",jungleImg)
+  //score = 0;
 
-  boy.setCollider()
+  //boy.setCollider()
 
   stoneGroup = createGroup();
   woodGroup = createGroup();
@@ -44,24 +44,25 @@ function draw() {
   
   if(gameState === PLAY){
 
-    stone;
-    wood;
+    Stone;
+    Wood;
+    
     jungle.velocityX = 10
     lion.velocityX = 6
     
 
-    if(keyIsDown(UP_ARROW)){
+   if(keyIsDown(UP_ARROW)){
       boy.velocityY = -16
     }
 
    if(woodGroup.isTouching(boy)){
-      woodGroup.destroyEach()
+     woodGroup.destroyEach()
       score = score+1
     
-    }
+}
 
     if(stoneGroup.isTouching(boy)){
-      gameState = END
+     gameState = END
 
     }
   
@@ -75,9 +76,9 @@ function draw() {
   }
 }
 else if(gameState === END){
-  lion.velocityX(0)
-  boy.velocityX(0)
-  jungle.velocityX(0)
+  lion.velocityX = 0
+  boy.velocityX = 0
+  jungle.velocityX = 0
   woodGroup.setVelocityXEach(0)
   stoneGroup.setVelocityXEach(0)
 
@@ -88,4 +89,25 @@ else if(gameState === END){
 }
 
   drawSprites();
+}
+
+function Stone(){
+  if(World.frameCount%200===0){
+    stone = createSprite(600, 400, 10, 10)
+    stone.addImage("abc",stoneImg)
+    stone.x = Math.round(random(100,400))
+    stone.velocityX = -(8+(score/10))
+    stone.setLifetime=50;
+
+  }
+}
+
+function Wood(){
+  if(World.frameCount%70===0){
+    wood = createSprite(800, 200, 10, 10)
+    wood.addImage("abc",stoneImg)
+    wood.x = Math.round(random(100,400))
+    wood.velocityX = -(8+(score/10))
+    wood.setLifetime=50;
+  }
 }
